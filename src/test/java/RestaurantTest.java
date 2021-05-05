@@ -26,8 +26,13 @@ class RestaurantTest {
     @Test
     public void is_restaurant_open_should_return_false_if_time_is_outside_opening_and_closing_time(){
         //WRITE UNIT TEST CASE HERE
-
+        restaurant = Mockito.mock(Restaurant.class);
+        Mockito.when(restaurant.getCurrentTime()).thenReturn(LocalTime.parse("11:30:00"));
+        restaurant.openingTime = LocalTime.parse("09:30:00");
+        restaurant.closingTime = LocalTime.parse("22:00:00");
+        assertTrue(restaurant.isRestaurantOpen());
     }
+
 
     //<<<<<<<<<<<<<<<<<<<<<<<<<OPEN/CLOSED>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
@@ -45,6 +50,7 @@ class RestaurantTest {
         restaurant.addToMenu("Sizzling brownie",319);
         assertEquals(initialMenuSize+1,restaurant.getMenu().size());
     }
+
     @Test
     public void removing_item_from_menu_should_decrease_menu_size_by_1() throws itemNotFoundException {
         LocalTime openingTime = LocalTime.parse("10:30:00");
